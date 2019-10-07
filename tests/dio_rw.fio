@@ -1,0 +1,14 @@
+[global]
+	ioengine=psync
+	rw=read
+	runtime=120
+	iodepth=1
+	direct=1
+	size=10M
+	filename=./testfile
+	group_reporting=1
+	thread=1
+	;bs=$bs
+	;numjobs=24
+
+[fio-run]

@@ -85,4 +85,4 @@ sqlite> .quit
 1. In case if anyone would like to contribute to this project - please feel free to submit a pull request.
 
 ### Example gnuplot from one such table
-[![GNUPLOT](https://raw.githubusercontent.com/riteshharjani/LinuxStudy/master/ext4/fio-output/vanilla-vs-ilocknew-randrw-dioread-nolock-1M.png)]
+![plot](https://raw.githubusercontent.com/riteshharjani/LinuxStudy/master/ext4/fio-output/vanilla-vs-ilocknew-randrw-dioread-nolock-1M.png)

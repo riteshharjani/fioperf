@@ -98,7 +98,8 @@ def fio_run_tests(section, config, test, fiosql_con):
 
             pr_debug("Running test: testname-bs-thread-time = {}".format(testname))
             fio_cmd = "fio --output-format=json"
-            fio_cmd += " --directory {}".format(config.get(section, 'mountdir'))
+            if (config.has_option(section, 'mountdir')):
+                fio_cmd += " --directory {}".format(config.get(section, 'mountdir'))
             fio_cmd += " --numjobs={}".format(thread)
             fio_cmd += " --bs={}".format(bs)
             fio_cmd += " {}".format("tests/" + test)
@@ -109,6 +110,7 @@ def fio_setup_sql(fiosql_con, section, columnname, fiotests):
     for fiotest in fiotests:
         for bs in Bursts:
             tablename = fio_get_tablename(section, fiotest, bs)
+            print("tablename = {}".format(tablename))
             sql_create_table(fiosql_con, tablename)
             col_read = columnname + "_read"
             col_write = columnname + "_write"
@@ -171,7 +173,6 @@ def fio_setup_env():
             continue
         if not config.has_option(section, "mountdir"):
             pr_debug("No mountdir specified in section '{}'".format(section))
-            sys.exit(1)
         fio_setup_sql(fiosql_con, section, fiosql_column, fiotests)
 
         fio_mount(section, config)
@@ -180,6 +181,5 @@ def fio_setup_env():
             #print(test)
             fio_run_tests(section, config, fiotest, fiosql_con)
         fio_umount(section, config)
-
 
 fio_setup_env()

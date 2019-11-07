@@ -10,11 +10,15 @@ Fio based filesystem performance utility
 ==========================================
 
 ### Description:
-fioperf is a simple fio based filesystem
-performance testing tool.
+fioperf is a simple fio based filesystem performance testing tool.
+Main purpose for this is to test different filesystem mount options for
+increasing number of threads. It also takes care by running each test 3 times
+and updates the average read + write bandwidth in the sqlite table.
+
+We use this sqlite3 table to then plot the bw graph to test for any scalability problems
+w.r.t. filesystem mount options/patches.
 
 It is still under development, so stay tuned.
-
 
 ### TODO:-
 1. Implement small script to provide gnuplot based on sql tables.
@@ -32,7 +36,7 @@ pip3 install sqlite3
 BuildConfig=ilock
 SqlDatabase=fio_dioread_db.db
 
-[dioread_nolock]
+[dioread_nolock]					// Note don't use '-' in names. Sqlite3 gives error in creating column with that name
 mkfs=mkfs.ext4 -F -b 4096 testfs
 mount=mount -t ext4 -o loop,dioread_nolock testfs ./mountdir/
 mountdir=./mountdir/
